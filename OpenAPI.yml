@@ -6,7 +6,7 @@ info:
 servers:
     - url: https://www.watchmovie.com
 paths:
-    - /reserveseat/<seatId>
+    - /reserveseat/{seatId}
     post:
         requestBody:
             description: Reserve a seat for a specific showtime
@@ -73,7 +73,7 @@ paths:
                                     type: string
                                     description: Internal server error.
                                     
-    - /deleteseat/<seatId>/for/<customerId>
+    - /deleteseat/{seatId}/for/{customerId}
     delete:
         description: Delete a reserved seat from one's online cart
         parameters:
