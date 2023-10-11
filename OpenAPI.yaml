@@ -1,0 +1,124 @@
+openapi: 3.0.0
+info:
+    title: Movie Seat Reservation
+    description: API to handle a seat reservation
+    version: 1.0.0
+servers:
+    - url: https://www.watchmovie.com
+paths:
+    - /reserveseat/<seatId>
+    post:
+        requestBody:
+            description: Reserve a seat for a specific showtime
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            customerId:
+                                type: integer
+                                example: 945638743
+                            seatId:
+                                type: integer
+                                example: 172453345
+                            movieId:
+                                type: integer
+                                example: 3775973
+        
+        responses:
+            '201':
+                description: Seat reservation successful
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                message:
+                                    type: string
+                                    description: Successful seat reservation.
+            '400':
+                description: Seat not available
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                message:
+                                    type: string
+                                    description: Unsuccessful seat reservation.
+    
+    - /getmovies
+    get:
+        description:  View a list of movies in theater
+
+        responses:
+            '201':
+                description: Seat reservation successful
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                message:
+                                    type: string
+                                    description: Successful seat reservation.
+            '500':
+                description: Internal server error
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                error:
+                                    type: string
+                                    description: Internal server error.
+                                    
+    - /deleteseat/<seatId>/for/<customerId>
+    delete:
+        description: Delete a reserved seat from one's online cart
+        parameters:
+          - in: path
+            name: seatId
+            required: true
+            schema:
+                type: integer
+            description: Uniquely identifies the seat that the customer reserved
+          
+          - in: path
+            name: customerId
+            required: true
+            schema:
+                type: integer
+            description: Uniquely identifies the customer
+        
+        responses:
+            '200':
+                description: Seat reservation removed.
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                message:
+                                    type: string
+                                    description: Seat reservation removed.
+            '404':
+                description: Seat not found
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                error:
+                                    type: string
+                                    description: Error removing the reserved seat.
+            '500':
+                description: Internal server error
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                error:
+                                    type: string
+                                    description: Internal server error.
